@@ -30,6 +30,11 @@ export const navLinks = [
     icon: "/assets/icons/camera.svg",
   },
   {
+    label: "Buy Images",
+    route: "/credits",
+    icon: "/assets/icons/bag.svg",
+  },
+  {
     label: "Profile",
     route: "/profile",
     icon: "/assets/icons/profile.svg",

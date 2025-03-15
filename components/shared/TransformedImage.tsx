@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { dataUrl, debounce, download, getImageSize } from '@/lib/utils'
-import { CldImage, getCldImageUrl } from 'next-cloudinary'
-import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props'
-import Image from 'next/image'
-import React from 'react'
+import { dataUrl, debounce, download, getImageSize } from '@/lib/utils';
+import { CldImage, getCldImageUrl } from 'next-cloudinary';
+import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
+import Image from 'next/image';
+import React from 'react';
 
 const TransformedImage = ({ image, type, title, transformationConfig, isTransforming, setIsTransforming, hasDownload = false }: TransformedImageProps) => {
   const downloadHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -15,8 +15,8 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
       height: image?.height,
       src: image?.publicId,
       ...transformationConfig
-    }), title)
-  }
+    }), title);
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -46,8 +46,8 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
           <CldImage 
             width={getImageSize(type, image, "width")}
             height={getImageSize(type, image, "height")}
-            src={image?.publicId}
-            alt={image.title}
+            src={image.publicId}
+            alt={image.title || "Transformed Image"}
             sizes={"(max-width: 767px) 100vw, 50vw"}
             placeholder={dataUrl as PlaceholderValue}
             className="transformed-image"
@@ -57,7 +57,7 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
             onError={() => {
               debounce(() => {
                 setIsTransforming && setIsTransforming(false);
-              }, 8000)()
+              }, 8000)();
             }}
             {...transformationConfig}
           />
@@ -74,13 +74,13 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
             </div>
           )}
         </div>
-      ): (
+      ) : (
         <div className="transformed-placeholder">
           Transformed Image
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default TransformedImage
+export default TransformedImage;
