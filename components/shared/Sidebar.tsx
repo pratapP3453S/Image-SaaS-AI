@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   return (
     <aside className="sidebar">
-      <div className="flex size-full flex-col gap-4">
+      <div className="flex size-full flex-col gap-3">
         <Link href="/" className="sidebar-logo">
           <Image src="/assets/images/logo-text.svg" alt="logo" width={180} height={28} />
         </Link>
@@ -20,7 +20,7 @@ const Sidebar = () => {
         <nav className="sidebar-nav">
           <SignedIn>
             <ul className="sidebar-nav_elements">
-              {navLinks.slice(0, 6).map((link) => {
+              {navLinks.slice(0, 7).map((link) => {
                 const isActive = link.route === pathname
 
                 return (
@@ -43,12 +43,12 @@ const Sidebar = () => {
               </ul>
 
 
-            <ul className="sidebar-nav_elements">
-              {navLinks.slice(6).map((link) => {
+            <ul className="sidebar-nav_elements ">
+              {navLinks.slice(7).map((link) => {
                 const isActive = link.route === pathname
 
                 return (
-                  <li key={link.route} className={`sidebar-nav_element group ${
+                  <li key={link.route} className={`sidebar-nav_element group mt-[-12px] ${
                     isActive ? 'bg-purple-gradient text-white' : 'text-gray-700'
                   }`}>
                     <Link className="sidebar-link" href={link.route}>
@@ -65,7 +65,7 @@ const Sidebar = () => {
                 )
               })}
 
-              <li className="flex-center cursor-pointer gap-2 p-4">
+              <li className="flex-center cursor-pointer gap-1 p-4 mt-[-17px]">
                 <UserButton afterSignOutUrl='/' showName />
               </li>
             </ul>

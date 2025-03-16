@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 
 import "./globals.css";
+import Providers from "@/components/Providers";
+import Script from "next/script";
 
 const IBMPlex = IBM_Plex_Sans({ 
   subsets: ["latin"],
@@ -27,7 +29,13 @@ export default function RootLayout({
     }}>
       <html lang="en">
         <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
-          {children}
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="lazyOnload"
+        />
+          <Providers>
+            {children}
+          </Providers>
         </body>
       </html>
     </ClerkProvider>
