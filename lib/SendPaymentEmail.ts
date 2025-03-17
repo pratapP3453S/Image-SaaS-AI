@@ -19,7 +19,8 @@ export async function sendPaymentSuccessEmail(
 ): Promise<any> {
   try {
     await resend.emails.send({
-      from: process.env.SENDER_EMAIL!,
+      // from: process.env.SENDER_EMAIL!,
+      from: 'onboarding@resend.dev',
       to: to,
       subject: "Payment Successful for Your Image | Image E-Comm",
       react: PaymentSuccessfulEmail({ email: to, productName, amount, razorpayOrderId }),
@@ -39,7 +40,8 @@ export async function sendPaymentUnsuccessEmail(
 ): Promise<any> {
   try {
     await resend.emails.send({
-      from: process.env.SENDER_EMAIL!,
+      // from: process.env.SENDER_EMAIL!,
+      from: 'onboarding@resend.dev',
       to: to,
       subject: "Payment Unsuccessful for Your Image | Image E-Comm",
       react: PaymentUnuccessfulEmail({ email: to, productName, amount, razorpayOrderId }),
@@ -58,7 +60,8 @@ export async function sendSuccessfulRegistrationEmail(
 ): Promise<any> {
   try {
     await resend.emails.send({
-      from: process.env.SENDER_EMAIL!,
+      // from: process.env.SENDER_EMAIL!,
+      from: 'onboarding@resend.dev',
       to: to,
       subject: "Test message | Image-Kit",
       react: RegisterSuccessfulEmail({ to, password, role }),

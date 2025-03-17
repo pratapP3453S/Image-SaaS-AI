@@ -137,16 +137,16 @@ export default function ProductPage() {
     );
 
   return (
-    <>
+<>
       {/* Back Button */}
       <div className="container mx-auto px-4">
         <button
-          onClick={() => router.push("/image-e-com")}
-          className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors"
-        >
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          <span className="text-sm font-medium">Back to Shop</span>
-        </button>
+        onClick={() => router.push("/image-e-com")}
+        className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors"
+      >
+        <ArrowLeft className="w-5 h-5 mr-2" />
+        <span className="text-sm font-medium">Back to Shop</span>
+      </button>
       </div>
 
       {/* Product Details */}
@@ -181,8 +181,8 @@ export default function ProductPage() {
             {/* Image Dimensions Info */}
             {selectedVariant && (
               <div className="text-sm text-center text-gray-600">
-                Preview: {IMAGE_VARIANTS[selectedVariant.type].dimensions.width}{" "}
-                x {IMAGE_VARIANTS[selectedVariant.type].dimensions.height}px
+                Preview: {IMAGE_VARIANTS[selectedVariant.type].dimensions.width} x{" "}
+                {IMAGE_VARIANTS[selectedVariant.type].dimensions.height}px
               </div>
             )}
           </div>
@@ -190,24 +190,18 @@ export default function ProductPage() {
           {/* Product Details Section */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">
-                {product.name}
-              </h1>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">{product.name}</h1>
               <p className="text-gray-600 text-lg">{product.description}</p>
             </div>
 
             {/* Variants Selection */}
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Available Versions
-              </h2>
+              <h2 className="text-xl font-semibold text-gray-800">Available Versions</h2>
               {product.variants.map((variant: any) => (
                 <div
                   key={variant.type}
                   className={`p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow ${
-                    selectedVariant?.type === variant.type
-                      ? "ring-2 ring-blue-500"
-                      : ""
+                    selectedVariant?.type === variant.type ? "ring-2 ring-blue-500" : ""
                   }`}
                   onClick={() => setSelectedVariant(variant)}
                 >
@@ -259,21 +253,15 @@ export default function ProductPage() {
 
             {/* License Information */}
             <div className="p-6 bg-white rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-800 mb-4">
-                License Information
-              </h3>
+              <h3 className="font-semibold text-gray-800 mb-4">License Information</h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-600">
-                    Personal: Use in personal projects
-                  </span>
+                  <span className="text-gray-600">Personal: Use in personal projects</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-600">
-                    Commercial: Use in commercial projects
-                  </span>
+                  <span className="text-gray-600">Commercial: Use in commercial projects</span>
                 </li>
               </ul>
             </div>

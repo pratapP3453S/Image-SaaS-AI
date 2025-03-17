@@ -1,6 +1,8 @@
+"use client";
+
 import { IKImage } from "imagekitio-next";
 import Link from "next/link";
-import { IProduct, IMAGE_VARIANTS } from "../lib/database/models/product.model";
+import { IProduct, IMAGE_VARIANTS } from "@/lib/database/models/product.model";
 import { Eye } from "lucide-react";
 
 export default function ProductCard({ product }: { product: IProduct }) {
@@ -10,15 +12,14 @@ export default function ProductCard({ product }: { product: IProduct }) {
   );
 
   return (
-    <div className="card bg-white shadow-md hover:shadow-lg transition-all duration-300 rounded-xl border border-gray-200 hover:scale-105">
-      {/* Image Section */}
+    <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow w-full max-w-[320px] mx-auto rounded-lg hover:scale-105">
       <figure className="relative px-4 pt-4">
         <Link
-          href={`image-e-com/products/${product._id}`}
+          href={`/image-e-com/products/${product._id}`}
           className="relative group w-full"
         >
           <div
-            className="rounded-lg overflow-hidden relative w-full bg-gray-100"
+            className="rounded-xl overflow-hidden relative w-full"
             style={{
               aspectRatio:
                 IMAGE_VARIANTS.SQUARE.dimensions.width /
@@ -41,26 +42,25 @@ export default function ProductCard({ product }: { product: IProduct }) {
               className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           </div>
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 rounded-xl" />
         </Link>
       </figure>
 
-      {/* Product Details */}
-      <div className="card-body p-4">
+      <div className="card-body p-6">
         <Link
-          href={`image-e-com/products/${product._id}`}
-          className="hover:text-primary transition-colors"
+          href={`/image-e-com/products/${product._id}`}
+          className="hover:opacity-80 transition-opacity"
         >
-          <h2 className="text-lg font-semibold text-gray-800">{product.name}</h2>
+          <h2 className="card-title text-xl font-bold text-gray-800">{product.name}</h2>
         </Link>
 
         <p className="text-sm text-gray-600 line-clamp-2 min-h-[2.5rem]">
           {product.description}
         </p>
 
-        {/* Pricing & CTA */}
-        <div className="card-actions justify-between items-center mt-3">
+        <div className="card-actions justify-between items-center mt-4">
           <div className="flex flex-col">
-            <span className="text-lg font-bold text-gray-900">
+            <span className="text-lg font-bold text-gray-800">
               From ₹{lowestPrice.toFixed(2)}
             </span>
             <span className="text-xs text-gray-500">
@@ -69,10 +69,10 @@ export default function ProductCard({ product }: { product: IProduct }) {
           </div>
 
           <Link
-            href={`image-e-com/products/${product._id}`}
-            className="btn btn-outline btn-sm border-gray-300 hover:bg-gray-100 transition-colors"
+            href={`/image-e-com/products/${product._id}`}
+            className="btn btn-primary btn-sm gap-2"
           >
-            <Eye className="w-4 h-4 text-gray-700" />
+            <Eye className="w-4 h-4" />
             View Options
           </Link>
         </div>

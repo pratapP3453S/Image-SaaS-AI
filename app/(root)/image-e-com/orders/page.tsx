@@ -239,9 +239,8 @@ export default function OrdersPage() {
           return (
             <div
               key={order._id?.toString()}
-              className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 hover:shadow-lg cursor-pointer"
+              className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 hover:shadow-lg"
             >
-              {/* <Link href={`/image-e-com/ordered-product/${product._id}`}> */}
               <div className="p-6">
                 <div className="flex flex-col md:flex-row gap-6">
                   {/* Preview Image - Low Quality */}
@@ -273,13 +272,7 @@ export default function OrdersPage() {
                   {/* Order Details */}
                   <div className="flex-grow">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-                      <div
-                        onClick={() =>
-                          router.push(
-                            `/image-e-com/ordered-product/${product._id}`
-                          )
-                        }
-                      >
+                      <div onClick={() => router.push(`/image-e-com/ordered-product/${product._id}`)} className="cursor-pointer">
                         <h2 className="text-xl font-bold text-gray-800 mb-2">
                           Order #{order._id?.toString().slice(-6)}
                         </h2>

@@ -374,3 +374,8 @@
   font-weight: 600;
   color: #384262;
 }
+
+/* Global CSS */
+html {
+  zoom: 0.9; /* 90% zoom */
+}

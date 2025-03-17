@@ -76,6 +76,10 @@ class ApiClient {
       body: sanitizedOrderData,
     });
   }
+  
+  async getOrder(orderId: string) {
+    return this.fetch<IOrder>(`/orders/${orderId}`);
+  }
 }
 
 export const apiClient = new ApiClient();
