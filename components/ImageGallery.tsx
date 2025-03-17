@@ -1,7 +1,6 @@
 import { Loader2 } from "lucide-react";
 import { IProduct } from "../lib/database/models/product.model";
 import ProductCard from "./ProductCard";
-import { useState, useEffect } from "react";
 
 interface ImageGalleryProps {
   products: IProduct[] | null; // Allow null for loading state

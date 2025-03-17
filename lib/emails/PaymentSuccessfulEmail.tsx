@@ -1,4 +1,4 @@
-import { Html, Head, Body, Container, Text, Link, Section, Button } from '@react-email/components';
+import { Html, Head, Body, Container, Text, Section } from '@react-email/components';
 
 interface PaymentSuccessfulEmailProps {
   email: string;
@@ -73,25 +73,4 @@ const sectionStyle = {
   padding: '15px',
   backgroundColor: '#f9f9f9',
   borderRadius: '8px',
-};
-
-const buttonStyle = {
-  backgroundColor: '#22c55e',
-  color: '#ffffff',
-  padding: '10px 20px',
-  borderRadius: '5px',
-  textDecoration: 'none',
-  display: 'inline-block',
-  margin: '20px 0',
-};
-
-const footerStyle = {
-  fontSize: '14px',
-  color: '#777777',
-  marginTop: '20px',
-};
-
-const linkStyle = {
-  color: '#22c55e',
-  textDecoration: 'none',
 };
