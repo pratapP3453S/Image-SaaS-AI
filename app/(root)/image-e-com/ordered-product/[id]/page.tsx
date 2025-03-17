@@ -15,6 +15,7 @@ import {
   Check,
   Image as ImageIcon,
   ArrowLeft,
+  Download,
 } from "lucide-react";
 import { useNotification } from "../../../../../components/Notification";
 import { apiClient } from "@/lib/api-client";
@@ -58,55 +59,55 @@ export default function ProductPage() {
     fetchProduct();
   }, [params?.id]);
 
-  const handlePurchase = async (variant: ImageVariant) => {
-    if (!product?._id) {
-      showNotification("Invalid product", "error");
-      return;
-    }
+  // const handlePurchase = async (variant: ImageVariant) => {
+  //   if (!product?._id) {
+  //     showNotification("Invalid product", "error");
+  //     return;
+  //   }
 
-    if (!user) {
-      showNotification("Please sign in to proceed with the purchase", "error");
-      return;
-    }
+  //   if (!user) {
+  //     showNotification("Please sign in to proceed with the purchase", "error");
+  //     return;
+  //   }
 
-    try {
-      const { orderId, amount } = await apiClient.createOrder({
-        productId: product._id,
-        variant,
-        clerkId: user?.id, // Pass the Clerk user ID
-      });
+  //   try {
+  //     const { orderId, amount } = await apiClient.createOrder({
+  //       productId: product._id,
+  //       variant,
+  //       clerkId: user?.id, // Pass the Clerk user ID
+  //     });
 
-      // if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
-      //   showNotification("Razorpay key is missing", "error");
-      //   return;
-      // }
+  //     // if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
+  //     //   showNotification("Razorpay key is missing", "error");
+  //     //   return;
+  //     // }
 
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount,
-        currency: "INR",
-        name: "ImageKit Shop",
-        description: `${product.name} - ${variant.type} Version`,
-        order_id: orderId,
-        handler: function () {
-          showNotification("Payment successful!", "success");
-          router.replace("/image-e-com/orders");
-        },
-        // prefill: {
-        //   email: session.user.email,
-        // },
-      };
+  //     const options = {
+  //       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+  //       amount,
+  //       currency: "INR",
+  //       name: "ImageKit Shop",
+  //       description: `${product.name} - ${variant.type} Version`,
+  //       order_id: orderId,
+  //       handler: function () {
+  //         showNotification("Payment successful!", "success");
+  //         router.replace("/image-e-com/orders");
+  //       },
+  //       // prefill: {
+  //       //   email: session.user.email,
+  //       // },
+  //     };
 
-      const rzp = new (window as any).Razorpay(options);
-      rzp.open();
-    } catch (error) {
-      console.error(error);
-      showNotification(
-        error instanceof Error ? error.message : "Payment failed",
-        "error"
-      );
-    }
-  };
+  //     const rzp = new (window as any).Razorpay(options);
+  //     rzp.open();
+  //   } catch (error) {
+  //     console.error(error);
+  //     showNotification(
+  //       error instanceof Error ? error.message : "Payment failed",
+  //       "error"
+  //     );
+  //   }
+  // };
 
   const getTransformation = (variantType: ImageVariantType) => {
     const variant = IMAGE_VARIANTS[variantType];
@@ -119,6 +120,25 @@ export default function ProductPage() {
         quality: "60",
       },
     ];
+  };
+
+  const handleDownload = async (url: string, filename: string) => {
+    try {
+      const response = await fetch(url, { mode: "cors" }); // Fetch the image
+      const blob = await response.blob(); // Convert to Blob
+      const blobUrl = URL.createObjectURL(blob); // Create temporary URL
+
+      const link = document.createElement("a"); // Create a download link
+      link.href = blobUrl;
+      link.download = filename; // Set filename
+      document.body.appendChild(link);
+      link.click(); // Trigger download
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(blobUrl); // Clean up
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
   };
 
   if (loading)
@@ -141,11 +161,11 @@ export default function ProductPage() {
       {/* Back Button */}
       <div className="container mx-auto px-4">
         <button
-          onClick={() => router.push("/image-e-com")}
+          onClick={() => router.push("/image-e-com/orders")}
           className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
-          <span className="text-sm font-medium">Back to Shop</span>
+          <span className="text-sm font-medium">Back to Order</span>
         </button>
       </div>
 
@@ -238,7 +258,7 @@ export default function ProductPage() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    {/* <div className="flex items-center gap-4">
                       <span className="text-xl font-bold text-gray-800">
                         ₹{variant.price.toFixed(2)}
                       </span>
@@ -251,12 +271,29 @@ export default function ProductPage() {
                       >
                         Buy Now
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               ))}
             </div>
-
+{/* <div className="text-center bg-blue-600 text-white rounded-lg h-10 flex justify-center items-center cursor-pointer">
+<Download className="w-4 h-4 mr-2 inline-block bg-blue-600" />
+Download High Quality
+</div> */}
+                        {order.status === "completed" && (
+                          <button
+                            onClick={() =>
+                              handleDownload(
+                                `${process.env.NEXT_PUBLIC_URL_ENDPOINT}/tr:q-100,w-${variantDimensions.width},h-${variantDimensions.height},cm-extract,fo-center/${product.imageUrl}`,
+                                `image-${order._id?.toString().slice(-6)}.jpg`
+                              )
+                            }
+                            className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                          >
+                            <Download className="w-4 h-4 mr-2" />
+                            Download High Quality
+                          </button>
+                        )}
             {/* License Information */}
             <div className="p-6 bg-white rounded-lg shadow-sm">
               <h3 className="font-semibold text-gray-800 mb-4">

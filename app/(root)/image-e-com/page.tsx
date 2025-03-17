@@ -14,7 +14,6 @@ export default function Home() {
       try {
         setIsLoading(true)
         const data = await apiClient.getProducts();
-        console.log(data)
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -28,9 +27,9 @@ export default function Home() {
   }, []);
  
   return (
-    // <main className="container mx-auto px-4 py-8">
-    //   <h1 className="text-3xl font-bold mb-8">ImageKit Shop</h1>
+    <main className="container mx-2 px-2 py-4">
+       {/* <h1 className="text-3xl font-bold mb-8">ImageKit Shop</h1> */}
       <ImageGallery products={products} isLoading={isLoading} />
-    // </main> 
+     </main> 
   );
 }

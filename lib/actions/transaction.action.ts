@@ -10,13 +10,13 @@ import { updateCredits } from './user.actions';
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const amount = Number(transaction.amount) * 100;
+  const amount = Number(transaction.amount) * 1000;
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
         price_data: {
-          currency: 'usd',
+          currency: 'inr',
           unit_amount: amount,
           product_data: {
             name: transaction.plan,

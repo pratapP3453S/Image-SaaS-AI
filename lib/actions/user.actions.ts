@@ -91,3 +91,19 @@ export async function updateCredits(userId: string, creditFee: number) {
     handleError(error);
   }
 }
+
+//CHECK ROLE
+export async function getUserRole(userId: string) {
+  try {
+    await connectToDatabase();
+
+    const userRole = await User.findById({
+      _id: userId, 
+    })
+    if (!userRole) throw new Error("User not found");
+
+    return JSON.parse(JSON.stringify(userRole.role));
+  } catch (error) {
+    handleError(error);
+  }
+}

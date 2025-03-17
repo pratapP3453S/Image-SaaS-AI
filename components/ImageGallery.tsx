@@ -12,7 +12,7 @@ export default function ImageGallery({ products, isLoading }: ImageGalleryProps)
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {isLoading ? (
       <div className="min-h-[70vh] flex justify-center items-center ">
-      <Loader2 className="w-12 h-12 animate-spin text-primary relative " />
+      <Loader2 className="w-12 h-12 animate-spin text-primary flex justify-center items-center" />
     </div>
       ) : products && products.length > 0 ? (
         products.map((product) => (

@@ -10,7 +10,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
   );
 
   return (
-    <div className="card bg-white shadow-md hover:shadow-lg transition-all duration-300 rounded-xl border border-gray-200">
+    <div className="card bg-white shadow-md hover:shadow-lg transition-all duration-300 rounded-xl border border-gray-200 hover:scale-105">
       {/* Image Section */}
       <figure className="relative px-4 pt-4">
         <Link
