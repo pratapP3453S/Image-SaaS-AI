@@ -27,7 +27,7 @@ export default function ImageGallery({ products, isLoading }: ImageGalleryProps)
         ) : (
           // No Products Found
           <div className="col-span-full text-center py-12">
-            <p className="text-gray-600 text-lg">No products found</p>
+            <p className="text-gray-600 text-lg">No products found </p>
           </div>
         )}
       </div>

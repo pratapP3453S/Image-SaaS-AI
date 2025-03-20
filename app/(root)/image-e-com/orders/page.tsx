@@ -161,6 +161,8 @@ import { IMAGE_VARIANTS } from "../../../../lib/database/models/product.model";
 import { apiClient } from "@/lib/api-client";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import ProductOrderSkeletonPage from "@/lib/skeleton-effects/ProductOrderSkeletonPage";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -173,6 +175,7 @@ export default function OrdersPage() {
       try {
         if (!user) return; // Ensure user is logged in
         const data = await apiClient.getUserOrders(user.id); // Pass clerkUserId
+        // const data = await apiClient.getUserOrders(); // Pass clerkUserId
         console.log("This is may be clerkId", user.id, "This is data", data);
         setOrders(data);
       } catch (error) {
@@ -187,33 +190,62 @@ export default function OrdersPage() {
 
   const handleDownload = async (url: string, filename: string) => {
     try {
-      const response = await fetch(url, { mode: "cors" }); // Fetch the image
-      const blob = await response.blob(); // Convert to Blob
-      const blobUrl = URL.createObjectURL(blob); // Create temporary URL
+      const response = await fetch(url, { mode: "cors" });
+      if (!response.ok) throw new Error("Failed to download image");
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
 
-      const link = document.createElement("a"); // Create a download link
+      const link = document.createElement("a");
       link.href = blobUrl;
-      link.download = filename; // Set filename
+      link.download = filename;
       document.body.appendChild(link);
-      link.click(); // Trigger download
+      link.click();
       document.body.removeChild(link);
 
-      URL.revokeObjectURL(blobUrl); // Clean up
+      URL.revokeObjectURL(blobUrl);
+      toast.success("Download started!");
     } catch (error) {
       console.error("Error downloading file:", error);
+      toast.error("Failed to download image");
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-[70vh] flex justify-center items-center">
-        <Loader2 className="w-12 h-12 animate-spin text-primary" />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     // <div className="min-h-[70vh] flex justify-center items-center">
+  //     //   <Loader2 className="w-12 h-12 animate-spin text-primary" />
+  //     // </div>
+  //     <div className="space-y-6">
+  //     {[...Array(3)].map((_, index) => (
+  //       <div key={index} className="bg-gray-100 rounded-lg p-6 animate-pulse">
+  //         <div className="flex flex-col md:flex-row gap-6">
+  //           <div className="w-[200px] h-[150px] bg-gray-200 rounded-lg"></div>
+  //           <div className="flex-grow space-y-4">
+  //             <div className="h-6 bg-gray-200 rounded w-1/2"></div>
+  //             <div className="h-4 bg-gray-200 rounded w-1/3"></div>
+  //             <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     ))}
+  //   </div>
+  //   );
+  // }
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {loading && (
+        <div className="space-y-6">
+          {[...Array(3)].map((_, index) => (
+            <div
+              key={index}
+              className="bg-gray-100 rounded-lg p-6 animate-pulse"
+            >
+              <ProductOrderSkeletonPage />
+            </div>
+          ))}
+        </div>
+      )}
       {/* Back Button */}
       <button
         onClick={() => router.push("/profile")}
@@ -239,7 +271,7 @@ export default function OrdersPage() {
           return (
             <div
               key={order._id?.toString()}
-              className="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105 hover:shadow-lg"
+              className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-x-[1.02] hover:scale-y-[1.02] hover:shadow-xl duration-700"
             >
               <div className="p-6">
                 <div className="flex flex-col md:flex-row gap-6">
@@ -272,7 +304,14 @@ export default function OrdersPage() {
                   {/* Order Details */}
                   <div className="flex-grow">
                     <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-                      <div onClick={() => router.push(`/image-e-com/ordered-product/${product._id}`)} className="cursor-pointer">
+                      <div
+                        onClick={() =>
+                          router.push(
+                            `/image-e-com/ordered-product/${product._id}`
+                          )
+                        }
+                        className="cursor-pointer"
+                      >
                         <h2 className="text-xl font-bold text-gray-800 mb-2">
                           Order #{order._id?.toString().slice(-6)}
                         </h2>
@@ -310,6 +349,7 @@ export default function OrdersPage() {
                         </p>
                         {order.status === "completed" && (
                           <button
+                            aria-label="Download high-quality image"
                             onClick={() =>
                               handleDownload(
                                 `${process.env.NEXT_PUBLIC_URL_ENDPOINT}/tr:q-100,w-${variantDimensions.width},h-${variantDimensions.height},cm-extract,fo-center/${product.imageUrl}`,
