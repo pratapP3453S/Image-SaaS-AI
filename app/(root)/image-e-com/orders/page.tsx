@@ -118,7 +118,7 @@ export default function OrdersPage() {
                   className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform hover:scale-x-[1.02] hover:scale-y-[1.02] hover:shadow-xl duration-700"
                 >
                   <div className="p-6">
-                    <div className="flex flex-col md:flex-row gap-6">
+                    <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
                       {/* Preview Image - Low Quality */}
                       <div
                         className="relative rounded-lg overflow-hidden bg-gray-100"
