@@ -312,7 +312,7 @@
 
   /* Sidebar Component */
   .sidebar {
-    @apply hidden h-screen w-72 bg-white p-5 shadow-lg shadow-purple-200/50 lg:flex;
+    @apply hidden h-screen w-72 bg-white p-5 shadow-md shadow-purple-200/50 lg:flex;
   }
 
   .sidebar-logo {
@@ -324,7 +324,7 @@
   }
 
   .sidebar-nav_elements {
-    @apply hidden w-full flex-col items-start gap-2 md:flex;
+    @apply hidden w-full flex-col items-start md:flex;
   }
 
   .sidebar-nav_element {
@@ -374,35 +374,4 @@
   font-weight: 600;
   color: #384262;
 }
-
-/* Global CSS */
-
-html {
-  zoom: 0.95;
-}
-
-@layer utilities {
-  .skeleton {
-    @apply relative overflow-hidden bg-gray-200 rounded-md;
-  }
-
-  .skeleton::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -150px;
-    height: 100%;
-    width: 150px;
-    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
-    animation: shimmer 1.5s infinite;
-  }
-
-  @keyframes shimmer {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-}
+/* for better screen according to the project */
