@@ -9,6 +9,7 @@ import { apiClient } from "@/lib/api-client";
 import { useUser } from "@clerk/nextjs";
 import { IMAGE_VARIANTS, ImageVariantType } from "@/lib/database/models/product.model";
 import { IOrder } from "@/lib/database/models/order.model";
+import Link from "next/link";
 
 export default function OrderDetailsPage() {
   const params = useParams();
@@ -22,15 +23,17 @@ export default function OrderDetailsPage() {
   useEffect(() => {
     const fetchOrder = async () => {
       const orderId = params?.id;
-
+      console.log("Fetching order with ID:", orderId);
+  
       if (!orderId) {
         setError("Order ID is missing");
         setLoading(false);
         return;
       }
-
+  
       try {
-        const data = await apiClient.getOrder(orderId.toString()); // Fetch order details
+        const data = await apiClient.getOrderedProductDetail(orderId.toString());
+        console.log("Order data:", data);
         setOrder(data);
       } catch (err) {
         console.error("Error fetching order:", err);
@@ -39,7 +42,7 @@ export default function OrderDetailsPage() {
         setLoading(false);
       }
     };
-
+  
     fetchOrder();
   }, [params?.id]);
 
@@ -98,11 +101,12 @@ export default function OrderDetailsPage() {
       {/* Back Button */}
       <div className="container mx-auto px-4">
         <button
-          onClick={() => router.push("/image-e-com/orders")}
           className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors"
         >
+          <Link href={`/image-e-com/orders`}>
           <ArrowLeft className="w-5 h-5 mr-2" />
           <span className="text-sm font-medium">Back to Orders</span>
+          </Link>
         </button>
       </div>
 

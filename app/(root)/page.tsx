@@ -9,7 +9,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
   const searchQuery = (searchParams?.query as string) || '';
 
   const images = await getAllImages({ page, searchQuery})
-
+ 
   return (
     <>
       <section className="home">
@@ -17,7 +17,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
           Unleash Your Creative Vision with Imaginify
         </h1>
         <ul className="flex-center w-full gap-20">
-          {navLinks.slice(1, 5).map((link) => (
+          {navLinks.slice(1, 7).map((link) => (
             <Link
               key={link.route}
               href={link.route}

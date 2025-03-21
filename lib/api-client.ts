@@ -59,6 +59,9 @@ class ApiClient {
   // async getUserOrders() {
   //   return this.fetch<IOrder[]>("/orders/user");
   // }
+  async getOrderedProductDetail(id: string) {
+    return this.fetch<IOrder>(`/ordered-product/${id}`);
+  }
 
   async getUserOrders(clerkId: string) {
     return this.fetch<IOrder[]>(`/orders/user?clerkId=${clerkId}`);

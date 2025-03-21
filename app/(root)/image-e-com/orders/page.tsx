@@ -10,6 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ProductOrderSkeletonPage from "@/lib/skeleton-effects/ProductOrderSkeletonPage";
+import Link from "next/link";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -67,11 +68,12 @@ export default function OrdersPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
       <button
-        onClick={() => router.push("/profile")}
         className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors"
       >
-        <ArrowLeft className="w-5 h-5 mr-2" />
+        <Link href={`/profile`}>
+        <ArrowLeft className="w-5 h-5 mr-2 inline-block" />
         <span className="text-sm font-medium">Back to Profile</span>
+        </Link>
       </button>
 
       {/* Page Title */}
@@ -81,7 +83,7 @@ export default function OrdersPage() {
         // Show skeleton effect while loading
         <div className="space-y-6">
           {[...Array(3)].map((_, index) => (
-            <div key={index} className="bg-gray-100 rounded-lg p-6 animate-pulse">
+            <div key={index} className="bg-gray-300 rounded-lg p-6 animate-pulse">
               <ProductOrderSkeletonPage />
             </div>
           ))}
@@ -148,14 +150,15 @@ export default function OrdersPage() {
                       {/* Order Details */}
                       <div className="flex-grow">
                         <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-                          <div
-                            onClick={() =>
-                              router.push(
-                                `/image-e-com/ordered-product/${product._id}`
-                              )
-                            }
+                          <Link
+                            href={
+                                // TODO: resolve the below issue 
+                                // `/image-e-com/ordered-product/${product._id}`
+                                // until the issue resolve for the above route take to the below route...
+                                `/image-e-com/products/${product._id}`}
                             className="cursor-pointer"
                           >
+                            
                             <h2 className="text-xl font-bold text-gray-800 mb-2">
                               Order #{order._id?.toString().slice(-6)}
                             </h2>
@@ -185,7 +188,7 @@ export default function OrdersPage() {
                                 </span>
                               </p>
                             </div>
-                          </div>
+                          </Link>
 
                           <div className="text-right">
                             <p className="text-2xl font-bold text-gray-800 mb-4">
