@@ -65,29 +65,27 @@ export default function OrdersPage() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200">
-
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
-      <button
-        className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors dark:text-slate-300"
-      >
+      <button className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors dark:text-slate-300">
         <Link href={`/profile`}>
-        <ArrowLeft className="w-5 h-5 mr-2 inline-block" />
-        <span className="text-sm font-medium">Back to Profile</span>
+          <ArrowLeft className="w-5 h-5 mr-2 inline-block" />
+          <span className="text-sm font-medium">Back to Profile</span>
         </Link>
       </button>
 
       {/* Page Title */}
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">My Orders</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-8 dark:text-slate-200">
+        My Orders
+      </h1>
 
       {loading ? (
         // Show skeleton effect while loading
         <div className="space-y-6">
           {[...Array(3)].map((_, index) => (
-            <div key={index} className="bg-gray-300 rounded-lg p-6 animate-pulse">
-              <ProductOrderSkeletonPage />
-            </div>
+            // <div key={index} className="bg-gray-300 rounded-lg p-6 animate-pulse">
+            <ProductOrderSkeletonPage key={index} />
+            // </div>
           ))}
         </div>
       ) : (
@@ -101,9 +99,9 @@ export default function OrdersPage() {
             // Show skeleton effect for 3 seconds before showing "No orders found"
             <div className="space-y-6">
               {[...Array(3)].map((_, index) => (
-                <div key={index} className="bg-gray-100 rounded-lg p-6 animate-pulse">
-                  <ProductOrderSkeletonPage />
-                </div>
+                // <div key={index} className="bg-gray-300 rounded-lg p-6 animate-pulse">
+                <ProductOrderSkeletonPage key={index} />
+                // </div>
               ))}
             </div>
           ) : (
@@ -119,7 +117,7 @@ export default function OrdersPage() {
               return (
                 <div
                   key={order._id?.toString()}
-                  className="dark:shadow-slate-500 dark:bg-gray-500 bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-x-[1.02] hover:scale-y-[1.02] hover:shadow-lg duration-700"
+                  className="dark:shadow-slate-500 dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700 bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-x-[1.02] hover:scale-y-[1.02] hover:shadow-lg duration-700"
                 >
                   <div className="p-6">
                     <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
@@ -154,13 +152,13 @@ export default function OrdersPage() {
                         <div className="flex flex-col md:flex-row justify-between items-start gap-4">
                           <Link
                             href={
-                                // TODO: resolve the below issue 
-                                // `/image-e-com/ordered-product/${product._id}`
-                                // until the issue resolve for the above route take to the below route...
-                                `/image-e-com/products/${product._id}`}
+                              // TODO: resolve the below issue
+                              // `/image-e-com/ordered-product/${product._id}`
+                              // until the issue resolve for the above route take to the below route...
+                              `/image-e-com/products/${product._id}`
+                            }
                             className="cursor-pointer"
                           >
-                            
                             <h2 className="text-xl font-bold text-gray-800 mb-2 dark:text-slate-200">
                               Order #{order._id?.toString().slice(-6)}
                             </h2>
@@ -194,7 +192,8 @@ export default function OrdersPage() {
 
                           <div className="text-right">
                             <p className="text-2xl font-bold text-gray-800 mb-4 dark:text-slate-200">
-                            <span className="text-yellow-500">₹</span>{order.amount.toFixed(2)}
+                              <span className="text-yellow-500">₹</span>
+                              {order.amount.toFixed(2)}
                             </p>
                             {order.status === "completed" && (
                               <button
@@ -222,7 +221,6 @@ export default function OrdersPage() {
           )}
         </div>
       )}
-    </div>
     </div>
   );
 }

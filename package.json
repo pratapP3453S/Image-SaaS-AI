@@ -44,6 +44,7 @@
     "react-email": "^3.0.7",
     "react-hook-form": "^7.54.2",
     "react-hot-toast": "^2.5.2",
+    "react-quill": "^2.0.0",
     "resend": "^4.1.2",
     "stripe": "^14.16.0",
     "svix": "^1.17.0",

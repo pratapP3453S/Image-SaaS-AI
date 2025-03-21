@@ -122,9 +122,9 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
       <Header title="Profile" />
 
       <section className="profile">
-        <div className="profile-balance">
+        <div className="profile-balance dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700">
           <Link href={"/pass"}>
-          <p className="p-14-medium md:p-16-medium">CREDITS AVAILABLE</p>
+          <p className="p-14-medium md:p-16-medium dark:text-slate-200">CREDITS AVAILABLE</p>
           <div className="mt-4 flex items-center gap-4">
             <Image
               src="/assets/icons/coins.svg"
@@ -133,14 +133,14 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
               height={50}
               className="size-9 md:size-12"
             />
-            <h2 className="h2-bold text-dark-600">{user.creditBalance}</h2>
+            <h2 className="h2-bold text-dark-600 dark:text-slate-200">{user.creditBalance}</h2>
           </div>
           </Link>
         </div>
 
-        <div className="profile-image-manipulation">
+        <div className="profile-image-manipulation dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700">
           <Link href={"/"}>
-          <p className="p-14-medium md:p-16-medium">IMAGE MANIPULATION DONE</p>
+          <p className="p-14-medium md:p-16-medium dark:text-slate-200">IMAGE MANIPULATION DONE</p>
           <div className="mt-4 flex items-center gap-4">
             <Image
               src="/assets/icons/photo.svg"
@@ -149,7 +149,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
               height={50}
               className="size-9 md:size-12"
             />
-            <h2 className="h2-bold text-dark-600">{images?.data.length}</h2>
+            <h2 className="h2-bold text-dark-600 dark:text-slate-200">{images?.data.length}</h2>
           </div>
           </Link>
         </div>
@@ -157,9 +157,9 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
 
       <section className="profile">
         {/* ✅ MY ORDERS (Updated) */}
-        <div className="profile-image-manipulation">
+        <div className="profile-image-manipulation dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700">
           <Link href={"/image-e-com/orders"}>
-          <p className="p-14-medium md:p-16-medium">MY ORDERS</p>
+          <p className="p-14-medium md:p-16-medium dark:text-slate-200">MY ORDERS</p>
           <div className="mt-4 flex items-center gap-4">
             <Image
               src="/assets/icons/order-icon.svg"
@@ -168,15 +168,15 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
               height={50}
               className="size-9 md:size-12"
             />
-            <h2 className="h2-bold text-dark-600">{orderCount}</h2>
+            <h2 className="h2-bold text-dark-600 dark:text-slate-200">{orderCount}</h2>
           </div>
           </Link>
         </div>
 
         { userRole === "admin" ? (
-                  <div className="profile-image-manipulation">
+                  <div className="profile-image-manipulation dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700">
                     <Link href={"/image-e-com/admin"}>
-                  <p className="p-14-medium md:p-16-medium">MONETIZE YOUR CREATIVITY</p>
+                  <p className="p-14-medium md:p-16-medium dark:text-slate-200">MONETIZE YOUR CREATIVITY</p>
                   <div className="mt-4 flex items-center gap-4">
                     <Image
                       src="/assets/icons/upload-image.svg"
@@ -185,7 +185,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
                       height={50}
                       className="size-9 md:size-12"
                     />
-                    <h2 className=" text-dark-600 p-14-medium md:p-16-medium">
+                    <h2 className=" text-dark-600 p-14-medium md:p-16-medium dark:text-slate-200">
                       Navigate to Seller Dashboard
                       {/* <Button className="bg-purple-gradient">
                         <Link href={"/image-e-com/admin"}>
@@ -197,9 +197,9 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
                   </Link>
                 </div>
         ) : (
-          <div className="profile-image-manipulation">
+          <div className="profile-image-manipulation dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700">
             <Link href={"/image-e-com/become-seller"}>
-          <p className="p-14-medium md:p-16-medium">BECOME A SELLER</p>
+          <p className="p-14-medium md:p-16-medium dark:text-slate-200">BECOME A SELLER</p>
           <div className="mt-4 flex items-center gap-4">
             <Image
               src="/assets/icons/seller.svg"
@@ -209,7 +209,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
               className="size-9 md:size-12"
             />
             <h2 className="h2-bold text-dark-600">
-            <p className="p-14-medium md:p-16-medium">Monetize Your Creativity With Imaginigy!</p>
+            <p className="p-14-medium md:p-16-medium dark:text-slate-200">Monetize Your Creativity With Imaginigy!</p>
             <div className="md:flex md:justify-center md:items-center">
             {/* <Button className="bg-purple-gradient">
             <Link href={"/image-e-com/become-seller"}>

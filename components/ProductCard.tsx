@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
   );
 
   return (
-    <div className="card bg-base-100 dark:shadow-slate-500 shadow-lg hover:shadow-xl transition-transform duration-700 w-full max-w-[320px] mx-auto rounded-lg hover:scale-105 dark:bg-slate-600">
+    <div className="card bg-base-100 dark:shadow-slate-500 shadow-lg hover:shadow-xl transition-transform duration-700 w-full max-w-[320px] mx-auto rounded-lg hover:scale-105 dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700">
       <figure className="relative px-4 pt-4">
         <Link
           href={`/image-e-com/products/${product._id}`}
