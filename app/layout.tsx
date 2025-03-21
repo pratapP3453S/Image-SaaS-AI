@@ -41,8 +41,6 @@
 //   );
 // }
 
-
-
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
@@ -50,11 +48,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import Providers from "@/components/Providers";
 import Script from "next/script";
+import { ThemeProvider } from "@/components/Theme/ThemeProvider";
 
 const IBMPlex = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-ibm-plex'
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex",
 });
 
 export const metadata: Metadata = {
@@ -68,9 +67,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={{
-      variables: { colorPrimary: '#624cf5' }
-    }}>
+    <ClerkProvider
+      appearance={{
+        variables: { colorPrimary: "#624cf5" },
+      }}
+    >
       <html lang="en">
         <head>
           <Script id="zoom-script" strategy="afterInteractive">
@@ -91,9 +92,9 @@ export default function RootLayout({
         </head>
         <body className={cn("font-IBMPlex antialiased", IBMPlex.variable)}>
           {/* <div id="zoom-wrapper" style={{ transform: 'scale(0.9)', width: '111.11%', height: '111.11%', transformOrigin: 'top left' }}> */}
-            <Providers>
-              {children}
-            </Providers>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Providers>{children}</Providers>
+          </ThemeProvider>
           {/* </div> */}
           <Script
             src="https://checkout.razorpay.com/v1/checkout.js"

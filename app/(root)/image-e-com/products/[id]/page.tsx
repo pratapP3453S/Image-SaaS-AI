@@ -141,7 +141,7 @@ export default function ProductPage() {
       {/* Back Button */}
       <div className="container mx-auto px-4">
         <button
-        className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors"
+        className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors dark:text-slate-300"
       >
         <Link href={`/image-e-com`}>
         <ArrowLeft className="w-5 h-5 mr-2 inline-block" />
@@ -191,13 +191,13 @@ export default function ProductPage() {
           {/* Product Details Section */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">{product.name}</h1>
-              <p className="text-gray-600 text-lg">{product.description}</p>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2 dark:text-white">{product.name}</h1>
+              <p className="text-gray-600 text-lg dark:text-slate-300">{product.description}</p>
             </div>
 
             {/* Variants Selection */}
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-800">Available Versions</h2>
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-200">Available Versions</h2>
               {product.variants.map((variant: any) => (
                 <div
                   key={variant.type}
@@ -235,7 +235,7 @@ export default function ProductPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="text-xl font-bold text-gray-800">
-                        ₹{variant.price.toFixed(2)}
+                      <span className="text-yellow-500">₹</span>{variant.price.toFixed(2)}
                       </span>
                       <button
                         className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"

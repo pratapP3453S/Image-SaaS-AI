@@ -191,8 +191,8 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
           control={form.control}
           name="title"
           formLabel="Image Title"
-          className="w-full"
-          render={({ field }) => <Input {...field} className="input-field" />}
+          className="w-full dark:text-white"
+          render={({ field }) => <Input {...field} className="input-field dark:text-white dark:bg-slate-300" />}
         />
 
         {type === 'fill' && (
@@ -200,13 +200,13 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
             control={form.control}
             name="aspectRatio"
             formLabel="Aspect Ratio"
-            className="w-full"
+            className="w-full dark:text-white"
             render={({ field }) => (
               <Select
                 onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}
                 value={field.value}
               >
-                <SelectTrigger className="select-field">
+                <SelectTrigger className="select-field dark:bg-slate-300">
                   <SelectValue placeholder="Select size" />
                 </SelectTrigger>
                 <SelectContent>
@@ -229,11 +229,11 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
               formLabel={
                 type === 'remove' ? 'Object to remove' : 'Object to recolor'
               }
-              className="w-full"
+              className="w-full dark:text-white"
               render={({ field }) => (
                 <Input 
                   value={field.value}
-                  className="input-field"
+                  className="input-field dark:bg-slate-300"
                   onChange={(e) => onInputChangeHandler(
                     'prompt',
                     e.target.value,
@@ -249,11 +249,11 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
                 control={form.control}
                 name="color"
                 formLabel="Replacement Color"
-                className="w-full"
+                className="w-full dark:text-white"
                 render={({ field }) => (
                   <Input 
                     value={field.value}
-                    className="input-field"
+                    className="input-field dark:bg-slate-300"
                     onChange={(e) => onInputChangeHandler(
                       'color',
                       e.target.value,
@@ -296,7 +296,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
         <div className="flex flex-col gap-4">
           <Button 
             type="button"
-            className="submit-button capitalize"
+            className="submit-button capitalize dark:text-white"
             disabled={isTransforming || newTransformation === null}
             onClick={onTransformHandler}
           >
@@ -304,7 +304,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
           </Button>
           <Button 
             type="submit"
-            className="submit-button capitalize"
+            className="submit-button capitalize dark:text-white"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Submitting...' : 'Save Image'}

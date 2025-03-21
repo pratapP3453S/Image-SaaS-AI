@@ -27,7 +27,7 @@ export default function Home() {
   }, []);
  
   return (
-    <main className="container mx-2 px-2 py-4">
+    <main className="container mx-2 px-2 py-4 dark:bg-inherit">
        {/* <h1 className="text-3xl font-bold mb-8">ImageKit Shop</h1> */}
       <ImageGallery products={products} isLoading={isLoading} />
      </main> 

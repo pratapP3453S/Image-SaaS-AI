@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
   );
 
   return (
-    <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-transform duration-700 w-full max-w-[320px] mx-auto rounded-lg hover:scale-105">
+    <div className="card bg-base-100 dark:shadow-slate-500 shadow-lg hover:shadow-xl transition-transform duration-700 w-full max-w-[320px] mx-auto rounded-lg hover:scale-105 dark:bg-slate-600">
       <figure className="relative px-4 pt-4">
         <Link
           href={`/image-e-com/products/${product._id}`}
@@ -51,28 +51,28 @@ export default function ProductCard({ product }: { product: IProduct }) {
           href={`/image-e-com/products/${product._id}`}
           className="hover:opacity-80 transition-opacity"
         >
-          <h2 className="card-title text-xl font-bold text-gray-800">{product.name}</h2>
+          <h2 className="card-title text-xl font-bold text-gray-800 dark:text-slate-200">{product.name}</h2>
         </Link>
 
-        <p className="text-sm text-gray-600 line-clamp-2 min-h-[2.5rem]">
+        <p className="text-sm text-gray-600 line-clamp-2 min-h-[2.5rem] dark:text-slate-300">
           {product.description}
         </p>
 
         <div className="card-actions justify-between items-center mt-4">
           <div className="flex flex-col">
-            <span className="text-lg font-bold text-gray-800">
-              From ₹{lowestPrice.toFixed(2)}
+            <span className="text-lg font-bold text-gray-800 dark:text-slate-300">
+              From <span className="text-yellow-500">₹</span>{lowestPrice.toFixed(2)}
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-gray-500 dark:text-white mb-3">
               {product.variants.length} sizes available
             </span>
           </div>
 
           <Link
             href={`/image-e-com/products/${product._id}`}
-            className="btn btn-primary btn-sm gap-2"
+            className="btn btn-primary btn-sm gap-2 dark:text-slate-200"
           >
-            <Eye className="w-4 h-4" />
+            <Eye className="w-5 h-5 dark:text-red-400 inline-block mr-2" />
             View Options
           </Link>
         </div>

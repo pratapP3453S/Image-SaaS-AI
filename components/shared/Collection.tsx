@@ -48,19 +48,19 @@ export const Collection = ({
 
   return (
     <>
-      <div className="collection-heading">
-        <h2 className="h2-bold text-dark-600">Recent Edits</h2>
+      <div className="collection-heading dark:text-white">
+        <h2 className="h2-bold text-dark-600 dark:text-white">Recent Edits</h2>
         {hasSearch && <Search />}
       </div>
 
       {images.length > 0 ? (
-        <ul className="collection-list">
+        <ul className="collection-list dark:text-white">
           {images.map((image) => (
             <Card image={image} key={image._id as string} />
           ))}
         </ul>
       ) : (
-        <div className="collection-empty">
+        <div className="collection-empty dark:text-white">
           <p className="p-20-semibold">Empty List</p>
         </div>
       )}

@@ -162,7 +162,7 @@ export default function OrderDetailsPage() {
                 </div>
                 <div className="mt-4">
                   <p className="text-lg font-bold text-gray-800">
-                    Price: ₹{order.amount.toFixed(2)}
+                    Price: <span className="text-yellow-700">₹</span>{order.amount.toFixed(2)}
                   </p>
                   <p className="text-sm text-gray-600">
                     Status:{" "}

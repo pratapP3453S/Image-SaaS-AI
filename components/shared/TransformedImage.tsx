@@ -21,7 +21,7 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
   return (
     <div className="flex flex-col gap-4">
       <div className="flex-between">
-        <h3 className="h3-bold text-dark-600">
+        <h3 className="h3-bold text-dark-600 dark:text-white">
           Transformed
         </h3>
 
@@ -75,7 +75,7 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
           )}
         </div>
       ) : (
-        <div className="transformed-placeholder">
+        <div className="transformed-placeholder dark:text-white">
           Transformed Image
         </div>
       )}

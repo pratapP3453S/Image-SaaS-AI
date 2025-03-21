@@ -7,6 +7,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "../ui/button"
+import { ThemeToggle } from "../Theme/ThemeToggle"
 
 const MobileNav = () => {
   const pathname = usePathname();
@@ -24,6 +25,7 @@ const MobileNav = () => {
 
       <nav className="flex gap-2">
         <SignedIn>
+        <ThemeToggle />
           <UserButton afterSignOutUrl="/" />
 
           <Sheet>
@@ -44,7 +46,6 @@ const MobileNav = () => {
                   width={152}
                   height={23}
                 />
-
               <ul className="header-nav_elements">
               {navLinks.map((link) => {
                 const isActive = link.route === pathname
@@ -71,6 +72,7 @@ const MobileNav = () => {
             </SheetContent>
           </Sheet>
         </SignedIn>
+
 
         <SignedOut>
             <Button asChild className="button bg-purple-gradient bg-cover">

@@ -147,7 +147,7 @@ export default function AdminProductForm() {
 
               {/* Price */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">Price (₹)</label>
+                <label className="block text-sm font-medium text-gray-700">Price (<span className="text-yellow-500">₹</span>)</label>
                 <input
                   type="number"
                   step="0.01"
