@@ -13,8 +13,6 @@ export async function POST(req: NextRequest) {
   try {
     // Parse the request body
     const payload = await req.json();
-    console.log("Request Payload:", payload); // Log the payload for debugging
-
     const { productId, variant, clerkId } = payload;
 
     // Validate the payload

@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
     if (signature !== expectedSignature) {
       return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
     }
-    console.log("yes completed.")
     const event = JSON.parse(body);
     await connectToDatabase();
 

@@ -85,7 +85,7 @@ export default function ProductPage() {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount,
         currency: "INR",
-        name: "ImageKit Shop",
+        name: "Imaginify Shop",
         description: `${product.name} - ${variant.type} Version`,
         order_id: orderId,
         handler: function () {
