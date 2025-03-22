@@ -209,7 +209,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
               className="size-9 md:size-12"
             />
             <h2 className="h2-bold text-dark-600">
-            <p className="p-14-medium md:p-16-medium dark:text-slate-200">Monetize Your Creativity With Imaginigy!</p>
+            <p className="p-14-medium md:p-16-medium dark:text-slate-200">Monetize Your Creativity With Imaginify!</p>
             <div className="md:flex md:justify-center md:items-center">
             {/* <Button className="bg-purple-gradient">
             <Link href={"/image-e-com/become-seller"}>
