@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import ProductOrderSkeletonPage from "@/lib/skeleton-effects/ProductOrderSkeletonPage";
 import Link from "next/link";
+import GoBackPage from "@/components/shared/GoBackPage";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<IOrder[]>([]);
@@ -67,12 +68,7 @@ export default function OrdersPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
-      <button className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors dark:text-slate-300">
-        <Link href={`/profile`}>
-          <ArrowLeft className="w-5 h-5 mr-2 inline-block" />
-          <span className="text-sm font-medium">Back to Profile</span>
-        </Link>
-      </button>
+      <GoBackPage linkto="/profile" backto="Back to Profile" />
 
       {/* Page Title */}
       <h1 className="text-3xl font-bold text-gray-800 mb-8 dark:text-slate-200">

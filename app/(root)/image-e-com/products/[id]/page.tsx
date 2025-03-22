@@ -21,6 +21,8 @@ import { apiClient } from "@/lib/api-client";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import ProductDetailSkeleton from "@/lib/skeleton-effects/ProductDetailSkeleton";
+import GoBackPage from "@/components/shared/GoBackPage";
 
 export default function ProductPage() {
   const params = useParams();
@@ -123,32 +125,30 @@ export default function ProductPage() {
 
   if (loading)
     return (
-      <div className="min-h-[70vh] flex justify-center items-center">
-        <Loader2 className="w-12 h-12 animate-spin text-primary" />
-      </div>
+      // <div className="min-h-[70vh] flex justify-center items-center">
+      //   <Loader2 className="w-12 h-12 animate-spin text-primary" />
+      // </div>
+      <>
+        <GoBackPage linkto="/image-e-com" backto="Back to Shop" />
+        <ProductDetailSkeleton />
+      </>
     );
 
   if (error || !product)
     return (
-      <div className="alert alert-error max-w-md mx-auto my-8">
-        <AlertCircle className="w-6 h-6" />
-        <span>{error || "Product not found"}</span>
-      </div>
+      <>
+        <GoBackPage linkto="/image-e-com" backto="Back to Shop" />
+        <div className="alert alert-error max-w-md mx-auto my-8">
+          <AlertCircle className="w-6 h-6" />
+          <span>{error || "Product not found"}</span>
+        </div>
+      </>
     );
 
   return (
-<>
+    <>
       {/* Back Button */}
-      <div className="container mx-auto px-4">
-        <button
-        className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors dark:text-slate-300"
-      >
-        <Link href={`/image-e-com`}>
-        <ArrowLeft className="w-5 h-5 mr-2 inline-block" />
-        <span className="text-sm font-medium">Back to Shop</span>
-        </Link>
-      </button>
-      </div>
+      <GoBackPage linkto="/image-e-com" backto="Back to Shop" />
 
       {/* Product Details */}
       <div className="container mx-auto px-4 py-8">
@@ -182,8 +182,8 @@ export default function ProductPage() {
             {/* Image Dimensions Info */}
             {selectedVariant && (
               <div className="text-sm text-center text-gray-600">
-                Preview: {IMAGE_VARIANTS[selectedVariant.type].dimensions.width} x{" "}
-                {IMAGE_VARIANTS[selectedVariant.type].dimensions.height}px
+                Preview: {IMAGE_VARIANTS[selectedVariant.type].dimensions.width}{" "}
+                x {IMAGE_VARIANTS[selectedVariant.type].dimensions.height}px
               </div>
             )}
           </div>
@@ -191,18 +191,26 @@ export default function ProductPage() {
           {/* Product Details Section */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 mb-2 dark:text-white">{product.name}</h1>
-              <p className="text-gray-600 text-lg dark:text-slate-300">{product.description}</p>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2 dark:text-white">
+                {product.name}
+              </h1>
+              <p className="text-gray-600 text-lg dark:text-slate-300">
+                {product.description}
+              </p>
             </div>
 
             {/* Variants Selection */}
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-200">Available Versions</h2>
+              <h2 className="text-xl font-semibold text-gray-800 dark:text-slate-200">
+                Available Versions
+              </h2>
               {product.variants.map((variant: any) => (
                 <div
                   key={variant.type}
                   className={`p-4 bg-white rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow ${
-                    selectedVariant?.type === variant.type ? "ring-2 ring-blue-500" : ""
+                    selectedVariant?.type === variant.type
+                      ? "ring-2 ring-blue-500"
+                      : ""
                   }`}
                   onClick={() => setSelectedVariant(variant)}
                 >
@@ -235,7 +243,8 @@ export default function ProductPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="text-xl font-bold text-gray-800">
-                      <span className="text-yellow-500">₹</span>{variant.price.toFixed(2)}
+                        <span className="text-yellow-500">₹</span>
+                        {variant.price.toFixed(2)}
                       </span>
                       <button
                         className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -254,15 +263,21 @@ export default function ProductPage() {
 
             {/* License Information */}
             <div className="p-6 bg-white rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-800 mb-4">License Information</h3>
+              <h3 className="font-semibold text-gray-800 mb-4">
+                License Information
+              </h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-600">Personal: Use in personal projects</span>
+                  <span className="text-gray-600">
+                    Personal: Use in personal projects
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-600">Commercial: Use in commercial projects</span>
+                  <span className="text-gray-600">
+                    Commercial: Use in commercial projects
+                  </span>
                 </li>
               </ul>
             </div>

@@ -3,13 +3,24 @@
 import { IKImage } from "imagekitio-next";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { Loader2, AlertCircle, Check, Image as ImageIcon, ArrowLeft, Download } from "lucide-react";
+import {
+  Loader2,
+  AlertCircle,
+  Check,
+  Image as ImageIcon,
+  ArrowLeft,
+  Download,
+} from "lucide-react";
 import { useNotification } from "../../../../../components/Notification";
 import { apiClient } from "@/lib/api-client";
 import { useUser } from "@clerk/nextjs";
-import { IMAGE_VARIANTS, ImageVariantType } from "@/lib/database/models/product.model";
+import {
+  IMAGE_VARIANTS,
+  ImageVariantType,
+} from "@/lib/database/models/product.model";
 import { IOrder } from "@/lib/database/models/order.model";
 import Link from "next/link";
+import GoBackPage from "@/components/shared/GoBackPage";
 
 export default function OrderDetailsPage() {
   const params = useParams();
@@ -24,15 +35,17 @@ export default function OrderDetailsPage() {
     const fetchOrder = async () => {
       const orderId = params?.id;
       console.log("Fetching order with ID:", orderId);
-  
+
       if (!orderId) {
         setError("Order ID is missing");
         setLoading(false);
         return;
       }
-  
+
       try {
-        const data = await apiClient.getOrderedProductDetail(orderId.toString());
+        const data = await apiClient.getOrderedProductDetail(
+          orderId.toString()
+        );
         console.log("Order data:", data);
         setOrder(data);
       } catch (err) {
@@ -42,7 +55,7 @@ export default function OrderDetailsPage() {
         setLoading(false);
       }
     };
-  
+
     fetchOrder();
   }, [params?.id]);
 
@@ -80,35 +93,35 @@ export default function OrderDetailsPage() {
 
   if (loading)
     return (
-      <div className="min-h-[70vh] flex justify-center items-center">
-        <Loader2 className="w-12 h-12 animate-spin text-primary" />
-      </div>
+      <>
+        <GoBackPage linkto="/image-e-com/orders" backto="Back to Orders" />
+        <div className="min-h-[70vh] flex justify-center items-center">
+          <Loader2 className="w-12 h-12 animate-spin text-primary" />
+        </div>
+      </>
     );
 
   if (error || !order)
     return (
-      <div className="alert alert-error max-w-md mx-auto my-8">
-        <AlertCircle className="w-6 h-6" />
-        <span>{error || "Order not found"}</span>
-      </div>
+      <>
+        <GoBackPage linkto="/image-e-com/orders" backto="Back to Orders" />
+        <div className="alert alert-error max-w-md mx-auto my-8">
+          <AlertCircle className="w-6 h-6" />
+          <span>{error || "Order not found"}</span>
+        </div>
+      </>
     );
 
   const product = order.productId as any; // Assuming product is populated in the order
-  const variantDimensions = IMAGE_VARIANTS[order.variant.type.toUpperCase() as keyof typeof IMAGE_VARIANTS].dimensions;
+  const variantDimensions =
+    IMAGE_VARIANTS[
+      order.variant.type.toUpperCase() as keyof typeof IMAGE_VARIANTS
+    ].dimensions;
 
   return (
     <>
       {/* Back Button */}
-      <div className="container mx-auto px-4">
-        <button
-          className="flex items-center text-gray-600 hover:text-gray-800 mb-6 transition-colors"
-        >
-          <Link href={`/image-e-com/orders`}>
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          <span className="text-sm font-medium">Back to Orders</span>
-          </Link>
-        </button>
-      </div>
+      <GoBackPage linkto="/image-e-com/orders" backto="Back to Orders" />
 
       {/* Order Details */}
       <div className="container mx-auto px-4 py-8">
@@ -140,29 +153,41 @@ export default function OrderDetailsPage() {
           {/* Order Details Section */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 mb-2">{product.name}</h1>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                {product.name}
+              </h1>
               <p className="text-gray-600 text-lg">{product.description}</p>
             </div>
 
             {/* Variant Details */}
             <div className="space-y-4">
-              <h2 className="text-xl font-semibold text-gray-800">Order Details</h2>
+              <h2 className="text-xl font-semibold text-gray-800">
+                Order Details
+              </h2>
               <div className="p-4 bg-white rounded-lg shadow-sm">
                 <div className="flex items-center gap-3">
                   <ImageIcon className="w-5 h-5 text-gray-700" />
                   <div>
                     <h3 className="font-semibold text-gray-800">
-                      {IMAGE_VARIANTS[order.variant.type.toUpperCase() as keyof typeof IMAGE_VARIANTS].label}
+                      {
+                        IMAGE_VARIANTS[
+                          order.variant.type.toUpperCase() as keyof typeof IMAGE_VARIANTS
+                        ].label
+                      }
                     </h3>
                     <p className="text-sm text-gray-600">
                       {variantDimensions.width} x {variantDimensions.height}px •{" "}
-                      <span className="capitalize">{order.variant.license}</span> license
+                      <span className="capitalize">
+                        {order.variant.license}
+                      </span>{" "}
+                      license
                     </p>
                   </div>
                 </div>
                 <div className="mt-4">
                   <p className="text-lg font-bold text-gray-800">
-                    Price: <span className="text-yellow-700">₹</span>{order.amount.toFixed(2)}
+                    Price: <span className="text-yellow-700">₹</span>
+                    {order.amount.toFixed(2)}
                   </p>
                   <p className="text-sm text-gray-600">
                     Status:{" "}
@@ -171,8 +196,8 @@ export default function OrderDetailsPage() {
                         order.status === "completed"
                           ? "bg-green-100 text-green-700"
                           : order.status === "failed"
-                          ? "bg-red-100 text-red-700"
-                          : "bg-yellow-100 text-yellow-700"
+                            ? "bg-red-100 text-red-700"
+                            : "bg-yellow-100 text-yellow-700"
                       }`}
                     >
                       {order.status}
@@ -200,15 +225,21 @@ export default function OrderDetailsPage() {
 
             {/* License Information */}
             <div className="p-6 bg-white rounded-lg shadow-sm">
-              <h3 className="font-semibold text-gray-800 mb-4">License Information</h3>
+              <h3 className="font-semibold text-gray-800 mb-4">
+                License Information
+              </h3>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-600">Personal: Use in personal projects</span>
+                  <span className="text-gray-600">
+                    Personal: Use in personal projects
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-600">Commercial: Use in commercial projects</span>
+                  <span className="text-gray-600">
+                    Commercial: Use in commercial projects
+                  </span>
                 </li>
               </ul>
             </div>

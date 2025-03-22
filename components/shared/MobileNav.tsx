@@ -13,7 +13,7 @@ const MobileNav = () => {
   const pathname = usePathname();
 
   return (
-    <header className="header dark:bg-slate-950">
+    <header className="header dark:bg-slate-950 z-10">
       <Link href="/" className="flex items-center gap-2 md:py-2">
         <Image
           src="/assets/images/logo-text.svg"
