@@ -123,7 +123,7 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
 
       <section className="profile">
         <div className="profile-balance dark:bg-gradient-to-br dark:from-slate-500 dark:to-slate-700">
-          <Link href={"/pass"}>
+          <Link href={"/credits"}>
           <p className="p-14-medium md:p-16-medium dark:text-slate-200">CREDITS AVAILABLE</p>
           <div className="mt-4 flex items-center gap-4">
             <Image

@@ -34,6 +34,7 @@ export async function getUserById(userId: string) {
   }
 }
 
+
 // UPDATE
 export async function updateUser(clerkId: string, user: UpdateUserParams) {
   try {
@@ -87,6 +88,33 @@ export async function updateCredits(userId: string, creditFee: number) {
     if(!updatedUserCredits) throw new Error("User credits update failed");
 
     return JSON.parse(JSON.stringify(updatedUserCredits));
+  } catch (error) {
+    handleError(error);
+  }
+}
+
+//UPDATE USER ROLE
+export async function updateUserRole(userId: string) {
+  try {
+    await connectToDatabase();
+
+    // First get the current role
+    const currentUser = await User.findOne({ _id: userId });
+    if (!currentUser) throw new Error("User not found");
+
+    // Determine new role
+    const newRole = currentUser.role === "user" ? "admin" : "user";
+
+    // Update with the new role
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId },
+      { role: newRole },
+      { new: true }
+    );
+
+    if (!updatedUser) throw new Error("Failed to update user role");
+
+    return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
     handleError(error);
   }
