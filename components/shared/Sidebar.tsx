@@ -92,6 +92,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../Theme/ThemeToggle";
+import { useEffect } from "react";
 
 const Sidebar = () => {
   const pathname = usePathname();
