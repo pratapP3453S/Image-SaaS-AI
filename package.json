@@ -31,6 +31,7 @@
     "framer-motion": "^12.5.0",
     "imagekit": "^6.0.0",
     "imagekitio-next": "^1.0.1",
+    "imagekitio-react": "^4.3.0",
     "lucide-react": "^0.323.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.12.1",
