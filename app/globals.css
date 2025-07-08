@@ -374,3 +374,48 @@
   font-weight: 600;
   color: #384262;
 }
+
+/* For mobile screens only */
+@media (max-width: 768px) {
+  .sidebar {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .mobile-scroll {
+    max-height: calc(100vh - 120px); /* Adjust based on your header height */
+    overflow-y: auto;
+  }
+  
+  /* Custom scrollbar styling */
+  .mobile-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .mobile-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  .mobile-scroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  
+  .mobile-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /* Dark mode scrollbar */
+  .dark .mobile-scroll::-webkit-scrollbar-track {
+    background: #2d3748;
+  }
+  
+  .dark .mobile-scroll::-webkit-scrollbar-thumb {
+    background: #4a5568;
+  }
+  
+  .dark .mobile-scroll::-webkit-scrollbar-thumb:hover {
+    background: #718096;
+  }
+}

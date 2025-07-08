@@ -5,6 +5,11 @@ export const navLinks = [
     icon: "/assets/icons/home.svg",
   },
   {
+    label: "Home Images",
+    route: "/home-images",
+    icon: "/assets/icons/home-image.svg",
+  },
+  {
     label: "Image Restore",
     route: "/transformations/add/restore",
     icon: "/assets/icons/image.svg",
@@ -33,11 +38,6 @@ export const navLinks = [
     label: "Buy Images",
     route: "/image-e-com",
     icon: "/assets/icons/buy-image.svg",
-  },
-  {
-    label: "Home Images",
-    route: "/home-images",
-    icon: "/assets/icons/home-image.svg",
   },
   {
     label: "Profile",
