@@ -1,6 +1,6 @@
-// pages/api/images.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import ImageKit from 'imagekit';
+import { auth } from "@clerk/nextjs/server";
 
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
@@ -8,17 +8,39 @@ const imagekit = new ImageKit({
   urlEndpoint: process.env.NEXT_PUBLIC_URL_ENDPOINT!,
 });
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+// GET /api/home-images?skip=0&limit=20
+export async function GET(req: NextRequest) {
   try {
+    // Auth
+    const { userId } = auth();
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Parse query params
+    const { searchParams } = new URL(req.url);
+    const skip = parseInt(searchParams.get('skip') || '0');
+    const limit = parseInt(searchParams.get('limit') || '20');
+
+    // Validate range
+    const finalLimit = Math.min(Math.max(limit, 1), 1000); // min 1, max 1000
+    const finalSkip = Math.max(skip, 0);
+
+    // Fetch files from ImageKit
     const result = await imagekit.listFiles({
-      path: "/photo", // Optional: folder name
-      limit: 20, // Max: 1000
-      sort: "ASC_CREATED"
+      path: "/photo",  // change to your folder if needed
+      limit: finalLimit,
+      skip: finalSkip,
+      sort: "ASC_CREATED",
     });
 
-    res.status(200).json(result);
+    return NextResponse.json(result, { status: 200 });
+
   } catch (error: any) {
     console.error('ImageKit API Error:', error);
-    res.status(500).json({ error: 'Failed to fetch images from ImageKit.' });
+    return NextResponse.json(
+      { error: 'Failed to fetch images from ImageKit.' },
+      { status: 500 }
+    );
   }
 }

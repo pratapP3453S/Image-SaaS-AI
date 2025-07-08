@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { IKImage, IKContext } from 'imagekitio-react';
-import type { IKImageProps } from 'imagekitio-react';
+"use client";
+
+import { useState, useEffect } from "react";
+import { IKImage, IKContext } from "imagekitio-react";
 
 interface ImageItem {
   fileId: string;
@@ -16,11 +17,17 @@ const HomeImageGallery = () => {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<ImageItem | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [skip, setSkip] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
 
-useEffect(() => {
+  const limit = 100; // Max limit per request
+
   const fetchImages = async () => {
     try {
-      const response = await fetch('/api/images');
+      setLoading(true);
+      const response = await fetch(`/api/home-images?limit=${limit}&skip=${skip}`);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
       const data = await response.json();
 
       const formattedImages: ImageItem[] = data.map((item: any) => ({
@@ -32,18 +39,20 @@ useEffect(() => {
         width: item.width || 600,
       }));
 
-      setImages(formattedImages);
-      setLoading(false);
+      setImages((prev) => [...prev, ...formattedImages]);
+      setHasMore(data.length === limit);
+      setSkip((prev) => prev + limit);
     } catch (error) {
-      console.error('Error fetching images:', error);
+      console.error("Error fetching images:", error);
+      setHasMore(false);
+    } finally {
       setLoading(false);
     }
   };
 
-  fetchImages();
-}, []);
-
-
+  useEffect(() => {
+    fetchImages();
+  }, []);
 
   const openLightbox = (image: ImageItem) => {
     setSelectedImage(image);
@@ -55,93 +64,82 @@ useEffect(() => {
     setSelectedImage(null);
   };
 
-  const navigateImage = (direction: 'prev' | 'next') => {
+  const navigateImage = (direction: "prev" | "next") => {
     if (!selectedImage) return;
-
-    const currentIndex = images.findIndex(img => img.fileId === selectedImage.fileId);
-    let newIndex;
-
-    if (direction === 'prev') {
-      newIndex = currentIndex - 1 < 0 ? images.length - 1 : currentIndex - 1;
-    } else {
-      newIndex = currentIndex + 1 >= images.length ? 0 : currentIndex + 1;
-    }
-
+    const currentIndex = images.findIndex((img) => img.fileId === selectedImage.fileId);
+    const newIndex = direction === "prev"
+      ? (currentIndex - 1 + images.length) % images.length
+      : (currentIndex + 1) % images.length;
     setSelectedImage(images[newIndex]);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">Photo Gallery</h1>
-      
-      {loading ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <div key={index} className="animate-pulse">
-              <div className="bg-gray-200 rounded-lg aspect-square"></div>
+      <h1 className="text-4xl font-bold text-center mb-10 text-purple-600">Image Gallery</h1>
+
+      <IKContext urlEndpoint="https://ik.imagekit.io/bi1q5easm">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {images.map((image) => (
+            <div
+              key={image.fileId}
+              className="cursor-pointer rounded-lg shadow-md overflow-hidden hover:scale-105 transition-transform"
+              onClick={() => openLightbox(image)}
+            >
+              <IKImage
+                path={image.filePath}
+                transformation={[{ height: 300, width: 300 }]}
+                loading="lazy"
+                className="object-cover w-full h-full aspect-square"
+                alt={`Image ${image.fileId}`}
+              />
             </div>
           ))}
         </div>
-      ) : (
-        <IKContext urlEndpoint="https://ik.imagekit.io/your_imagekit_id">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {images.map((image) => (
-              <div 
-                key={image.fileId} 
-                className="cursor-pointer transition-transform duration-300 hover:scale-105"
-                onClick={() => openLightbox(image)}
-              >
-                <IKImage
-                  path={image.filePath}
-                  transformation={[{
-                    height: 300,
-                    width: 300,
-                  }]}
-                  loading="lazy"
-                  className="rounded-lg object-cover w-full h-full aspect-square"
-                  alt={`Gallery image ${image.fileId}`}
-                />
-              </div>
-            ))}
-          </div>
-        </IKContext>
-      )}
 
-      {/* Lightbox */}
+        {hasMore && (
+          <div className="flex justify-center mt-8">
+            <button
+              onClick={fetchImages}
+              disabled={loading}
+              className="px-6 py-2 text-white bg-purple-600 hover:bg-purple-700 rounded-lg shadow-md disabled:opacity-50"
+            >
+              {loading ? "Loading..." : "Load More"}
+            </button>
+          </div>
+        )}
+      </IKContext>
+
       {isOpen && selectedImage && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
-          <button 
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
+          <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300"
+            className="absolute top-4 right-6 text-white text-3xl hover:text-gray-400"
           >
             &times;
           </button>
-          
-          <button 
-            onClick={() => navigateImage('prev')}
-            className="absolute left-4 text-white text-2xl hover:text-gray-300 md:left-8 lg:left-16"
+
+          <button
+            onClick={() => navigateImage("prev")}
+            className="absolute left-4 text-white text-4xl hover:text-purple-400"
           >
             &#10094;
           </button>
-          
-          <div className="relative max-w-full max-h-full">
-            <IKContext urlEndpoint="https://ik.imagekit.io/your_imagekit_id">
+
+          <div className="relative p-4 max-w-4xl w-full">
+            <IKContext urlEndpoint="https://ik.imagekit.io/bi1q5easm">
               <IKImage
                 path={selectedImage.filePath}
-                transformation={[{
-                  height: 1080,
-                  width: 1080,
-                }]}
+                transformation={[{ height: 1080, width: 1080 }]}
                 loading="lazy"
-                className="max-h-[90vh] max-w-full object-contain"
-                alt={`Selected image ${selectedImage.fileId}`}
+                className="rounded-lg max-h-[90vh] mx-auto object-contain shadow-xl"
+                alt={`Full image ${selectedImage.fileId}`}
               />
             </IKContext>
           </div>
-          
-          <button 
-            onClick={() => navigateImage('next')}
-            className="absolute right-4 text-white text-2xl hover:text-gray-300 md:right-8 lg:right-16"
+
+          <button
+            onClick={() => navigateImage("next")}
+            className="absolute right-4 text-white text-4xl hover:text-purple-400"
           >
             &#10095;
           </button>
