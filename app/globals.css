@@ -419,3 +419,22 @@
     background: #718096;
   }
 }
+
+/* Swiper pagination styles */
+.swiper-pagination {
+  position: absolute;
+  width: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .swiper-pagination {
+    bottom: 20px !important;
+  }
+}
