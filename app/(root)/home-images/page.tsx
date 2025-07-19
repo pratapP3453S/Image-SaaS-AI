@@ -213,7 +213,7 @@ const HomeImageGallery = () => {
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, selectedImage, images]);
+  }, [isOpen, selectedImage, images, navigateImage]);
 
   const scrollToTop = () => {
     window.scrollTo({
