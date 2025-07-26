@@ -211,33 +211,6 @@ const LikedImages = () => {
         <h1 className="text-2xl md:text-3xl font-bold text-purple-600">
           Your Liked Images
         </h1>
-        {/* <button
-          onClick={async () => {
-            try {
-              const response = await fetch("/api/home-images/download-images", {
-                method: "POST",
-              });
-
-              if (!response.ok) throw new Error("Failed to initiate download");
-
-              // Handle the download
-              const blob = await response.blob();
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement("a");
-              a.href = url;
-              a.download = "liked-images.zip";
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-            } catch (error) {
-              console.error("Download error:", error);
-              alert("Failed to download images");
-            }
-          }}
-          className="px-4 py-2 bg-blue-600 text-white rounded"
-        >
-          Download All Liked Images
-        </button> */}
         <Link
           href="/home-images"
           className="text-purple-600 border border-purple-600 px-4 py-2 rounded hover:bg-purple-50 transition-colors"
