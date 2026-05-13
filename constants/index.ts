@@ -4,11 +4,11 @@ export const navLinks = [
     route: "/",
     icon: "/assets/icons/home.svg",
   },
-  {
-    label: "Home Images",
-    route: "/home-images",
-    icon: "/assets/icons/home-image.svg",
-  },
+  // {
+  //   label: "Home Images",
+  //   route: "/home-images",
+  //   icon: "/assets/icons/home-image.svg",
+  // },
   {
     label: "Image Restore",
     route: "/transformations/add/restore",

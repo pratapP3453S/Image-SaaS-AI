@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart, HeartFill, ArrowUp } from "react-bootstrap-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  FreeMode,
   Navigation,
   Pagination,
   Keyboard,
@@ -373,7 +372,7 @@ const HomeImageGallery = () => {
       )}
 
       {/* Fixed Liked Images Button */}
-      <motion.button
+      {/* <motion.button
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
@@ -392,7 +391,7 @@ const HomeImageGallery = () => {
           </motion.span>
         )}
         <HeartFill className="text-red-500 text-2xl" />
-      </motion.button>
+      </motion.button> */}
 
       {/* Back to Top Button */}
       <AnimatePresence>
@@ -583,8 +582,6 @@ const HomeImageGallery = () => {
 };
 
 export default HomeImageGallery;
-
-// "use client";
 
 // import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 // import { IKImage, IKContext } from "imagekitio-react";

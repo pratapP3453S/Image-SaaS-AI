@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import ImageKit from "imagekit";
 
+export const dynamic = 'force-dynamic';
+
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,

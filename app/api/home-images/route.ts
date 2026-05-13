@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import ImageKit from 'imagekit';
 import { auth } from "@clerk/nextjs/server";
 
+export const dynamic = 'force-dynamic';
+
 const kit1 = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_PUBLIC_KEY!,
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,

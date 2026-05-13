@@ -4,6 +4,8 @@ import { connectToDatabase } from "@/lib/database/mongoose";
 import Like from "@/lib/database/models/like.model";
 import { auth } from "@clerk/nextjs/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const { userId } = auth();
